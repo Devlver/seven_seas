@@ -1,0 +1,97 @@
+#root2 {
+    -fx-background-image: url('../images/pattern-bg.jpg');
+    -fx-background-repeat: stretch;
+    -fx-background-position: center center;
+    -fx-background-size: 1920 1080;
+}
+
+#errorLabel {
+    -fx-font-family: "Orkney Light";
+    -fx-font-size: 17;
+    -fx-text-alignment: center;
+    -fx-text-fill: red;
+}
+
+/*noinspection ALL*/
+.text-field {
+    -fx-font-family: "Orkney Light";
+    -fx-font-size: 25;
+    -fx-text-fill: black;
+    -fx-text-alignment: center;
+    -fx-border-radius: 10 10 10 10;
+    -fx-border-color: transparent;
+}
+
+#loginTextField {
+    -fx-font-family: "Orkney Light";
+    -fx-font-size: 25;
+    -fx-text-fill: black;
+    -fx-text-alignment: center;
+    -fx-border-radius: 10 10 10 10;
+    -fx-border-color: transparent;
+}
+
+.check-box {
+    -fx-font-family: "Orkney Light";
+    -fx-font-size: 18;
+}
+
+#welcome-label {
+    -fx-font-family: "Orkney Light";
+    -fx-font-size: 70;
+    -fx-text-fill: white;
+}
+
+#signup-invitation {
+    -fx-font-family: "Orkney Light";
+    -fx-font-size: 40;
+    -fx-text-fill: white;
+}
+
+.button {
+    -fx-background-color: blueviolet;
+    -fx-text-fill: #EBECED;
+    -fx-font-size: 30;
+    -fx-border-color: transparent;
+    -fx-background-radius: 20;
+}
+
+.button:pressed {
+    -fx-background-color: #939393;
+}
+
+.button:hover {
+    -fx-background-color: #e84545;
+}
+
+/* forcing greyscale antialiasing for smooth fonts at any size */
+/*noinspection ALL*/
+.text {
+    -fx-font-smoothing-type: gray;
+}
+
+.label {
+    -fx-font-family: "Orkney Light";
+    -fx-font-size: 40;
+    -fx-text-alignment: center;
+    -fx-text-fill: #4C586F
+}
+
+.hyperlink {
+    -fx-font-family: "Orkney Light";
+    -fx-font-size: 18;
+    -fx-text-alignment: center;
+    -fx-text-fill: black;
+}
+
+.progress-indicator {
+    -fx-progress-color: blueviolet;
+}
+
+.split-pane:horizontal > .split-pane-divider {
+    -fx-background-color: transparent;
+}
+
+.split-pane:vertical > .split-pane-divider {
+    -fx-background-color: transparent;
+}

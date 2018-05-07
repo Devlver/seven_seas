@@ -1,0 +1,104 @@
+.text {
+    -fx-font-smoothing-type: gray;
+}
+
+.jfx-tab-pane {
+    -fx-tab-min-width: 300px;
+}
+
+.button .jfx-rippler {
+    -jfx-rippler-fill: BLUEVIOLET;
+}
+
+.jfx-tab-pane .tab-header-background {
+    -fx-background-color: #36474F;
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: #4C586F;
+}
+
+.tab {
+    -fx-background-insets: 0 2 0 2, 0, 0;
+}
+
+.tab-pane .tab {
+    -fx-background-color: #e6e6e6;
+
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: #3c3c3c;
+}
+
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "Orkney Light";
+    -fx-font-size: 25px;
+}
+
+.tab:selected .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: blueviolet;
+}
+
+.jfx-tab-pane .tab-header-area .jfx-rippler {
+    -jfx-rippler-fill: BLUEVIOLET;
+}
+
+.jfx-tab-pane .tab-selected-line {
+    -fx-background-color: BLUEVIOLET;
+}
+
+.jfx-hamburger {
+    -fx-background-color: #36474F;
+}
+
+.jfx-hamburger StackPane {
+    -fx-background-color: blueviolet;
+}
+
+.jfx-text-field {
+    -fx-font-family: "Orkney Light";
+    -fx-font-size: 15;
+}
+
+/* Let TreeTableView rows look like TableView rows  */
+.tree-table-row-cell {
+    -fx-background-color: -fx-table-cell-border-color, -fx-background;
+    -fx-background-insets: 0, 0 0 1 0;
+}
+
+.tree-table-row-cell:selected {
+    -fx-background-color: blueviolet;
+}
+
+.tree-table-view .column-header {
+    -fx-font-family: "Orkney Light";
+    -fx-font-size: 20;
+}
+
+.table-column {
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+}
+
+#drawer-button {
+    -fx-font-family: "Orkney Light";
+    -fx-font-size: 15;
+    -fx-background-color: #e7e7e7;
+}
+
+#errorLabel {
+    -fx-font-family: "Orkney Light";
+    -fx-font-size: 17;
+    -fx-text-alignment: center;
+    -fx-text-fill: red;
+}
+
+#tab-label {
+    -fx-font-family: "Orkney Light";
+    -fx-font-size: 25;
+}
+

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import com.jfoenix.controls.JFXSpinner?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane fx:id="parent" stylesheets="@../css/mainViewStyle.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MainView.MainViewController">
+    <AnchorPane fx:id="rootAnchor" prefHeight="768.0" prefWidth="1366.0">
+        <JFXTabPane layoutX="112.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1254.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="131.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Tab closable="false" text="Home">
+                <VBox alignment="BOTTOM_CENTER" prefHeight="722.0" prefWidth="1306.0">
+                    <HBox prefHeight="100.0" prefWidth="1306.0">
+                        <AnchorPane prefHeight="100.0" prefWidth="1306.0">
+                            <JFXTextField fx:id="searchField" focusColor="BLUEVIOLET" labelFloat="true" layoutY="50.0" prefHeight="34.0" prefWidth="550.0" promptText="Port or excursion name" AnchorPane.leftAnchor="0.0" />
+                            <JFXButton id="drawer-button" layoutX="585.0" layoutY="56.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#Search" prefHeight="31.0" prefWidth="70.0" text="Search" AnchorPane.bottomAnchor="13.0" AnchorPane.topAnchor="56.0" />
+                            <JFXButton id="drawer-button" layoutX="671.0" layoutY="56.0" onAction="#PopulateExcursionList" text="Refresh" AnchorPane.bottomAnchor="13.0" AnchorPane.topAnchor="56.0" />
+                            <Label id="errorLabel" fx:id="errorLabelHome" layoutX="839.0" layoutY="60.0" AnchorPane.leftAnchor="839.0" />
+                     <JFXButton id="drawer-button" fx:id="bookButton" layoutX="756.0" layoutY="57.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#Book" prefHeight="31.0" prefWidth="70.0" text="Book" AnchorPane.bottomAnchor="12.0" AnchorPane.topAnchor="57.0" />
+                        </AnchorPane>
+                    </HBox>
+                    <JFXTreeTableView fx:id="excursionTable" prefHeight="623.0" prefWidth="1222.0" showRoot="false" sortMode="ONLY_FIRST_LEVEL" VBox.vgrow="ALWAYS">
+                        <columnResizePolicy>
+                            <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                        </columnResizePolicy>
+                    </JFXTreeTableView>
+                </VBox>
+            </Tab>
+            <Tab closable="false" text="Bookings">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label id="tab-label" text="Your bookings" />
+                        <AnchorPane prefHeight="88.0" prefWidth="1254.0">
+                           <children>
+                              <JFXButton id="drawer-button" layoutY="-3.0" onAction="#EditBooking" prefHeight="35.0" prefWidth="90.0" text="Edit" AnchorPane.leftAnchor="0.0" />
+                              <JFXButton id="drawer-button" layoutX="97.0" layoutY="-3.0" onAction="#CancelBooking" prefHeight="35.0" prefWidth="90.0" text="Cancel" />
+                              <Label id="errorLabel" fx:id="errorLabelBookings" layoutX="1155.0" layoutY="3.0" AnchorPane.rightAnchor="99.0" />
+                              <JFXButton id="drawer-button" layoutX="200.0" layoutY="-3.0" onAction="#PopulateBookedList" prefHeight="35.0" prefWidth="90.0" text="Refresh" />
+                           </children>
+                        </AnchorPane>
+                        <JFXTreeTableView fx:id="bookedTable" prefHeight="737.0" prefWidth="1254.0" showRoot="false" sortMode="ONLY_FIRST_LEVEL" VBox.vgrow="ALWAYS">
+                           <columnResizePolicy>
+                              <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </JFXTreeTableView>
+                     </children>
+                  </VBox>
+               </children></AnchorPane>
+            </Tab>
+            <Tab closable="false" text="Profile">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </Tab>
+            <Tab closable="false" text="Settings">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </Tab>
+        </JFXTabPane>
+        <JFXHamburger fx:id="hamburger" prefHeight="45.0" prefWidth="131.0" />
+        <JFXDrawer fx:id="drawer" defaultDrawerSize="131.0" layoutY="46.0" prefHeight="722.0" prefWidth="131.0" resizeContent="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="46.0">
+            <VBox fx:id="drawerSidePane" alignment="BOTTOM_CENTER" prefHeight="103.0" prefWidth="131.0">
+                <JFXButton id="drawer-button" onAction="#SwitchScene" prefHeight="52.0" prefWidth="131.0" text="Log out" />
+                <JFXButton id="drawer-button" onAction="#Terminate" prefHeight="52.0" prefWidth="131.0" text="Exit" />
+            </VBox>
+        </JFXDrawer>
+    </AnchorPane>
+    <JFXSpinner fx:id="progressIndicator" radius="60.0" visible="false" />
+</StackPane>
