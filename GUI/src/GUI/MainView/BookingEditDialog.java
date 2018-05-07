@@ -14,6 +14,6 @@ public class BookingEditDialog extends BookingDialog {
 	
 	@Override
 	public Code GetResult() throws IOException, ClassNotFoundException {
-		return ExcursionData.EditBooking(selected, comboBox.getValue(), datePicker.getValue());
+		return ExcursionData.EditBooking(selected, this.getComboBox().getValue(), this.getDatePicker().getValue());
 	}
 }

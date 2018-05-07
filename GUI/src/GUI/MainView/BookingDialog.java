@@ -11,13 +11,12 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 class BookingDialog extends JFXDialog {
 	final int selected;
 	
-	JFXDatePicker datePicker;
-	JFXComboBox<Integer> comboBox;
+	private JFXDatePicker datePicker;
+	private JFXComboBox<Integer> comboBox;
 	String header;
 	
 	private JFXButton confirmButton;
@@ -65,18 +64,6 @@ class BookingDialog extends JFXDialog {
 	private void SetActions() {
 		
 		cancelButton.setOnAction(event -> close());
-		
-		confirmButton.setOnAction(event -> {
-			if (comboBox.getValue() == null) {
-				errorLabel.setText("Please select number of passengers");
-			} else if (datePicker.getValue() == null) {
-				errorLabel.setText("Please select a date");
-			} else if (datePicker.getValue().isBefore(LocalDate.now())) {
-				errorLabel.setText("Please select a valid date");
-			} else {
-				close();
-			}
-		});
 	}
 	
 	public Code GetResult() throws IOException, ClassNotFoundException {
@@ -86,5 +73,17 @@ class BookingDialog extends JFXDialog {
 
 	public JFXButton getConfirmButton() {
 		return confirmButton;
+	}
+	
+	public JFXComboBox<Integer> getComboBox() {
+		return comboBox;
+	}
+	
+	public JFXDatePicker getDatePicker() {
+		return datePicker;
+	}
+	
+	public Label getErrorLabel() {
+		return errorLabel;
 	}
 }
