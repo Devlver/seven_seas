@@ -51,45 +51,6 @@
     -fx-background-color: BLUEVIOLET;
 }
 
-.jfx-hamburger {
-    -fx-background-color: #36474F;
-}
-
-.jfx-hamburger StackPane {
-    -fx-background-color: blueviolet;
-}
-
-.jfx-text-field {
-    -fx-font-family: "Orkney Light";
-    -fx-font-size: 15;
-}
-
-/* Let TreeTableView rows look like TableView rows  */
-.tree-table-row-cell {
-    -fx-background-color: -fx-table-cell-border-color, -fx-background;
-    -fx-background-insets: 0, 0 0 1 0;
-}
-
-.tree-table-row-cell:selected {
-    -fx-background-color: blueviolet;
-}
-
-.tree-table-view .column-header {
-    -fx-font-family: "Orkney Light";
-    -fx-font-size: 20;
-}
-
-.table-column {
-    -fx-text-alignment: center;
-    -fx-alignment: center;
-}
-
-#drawer-button {
-    -fx-font-family: "Orkney Light";
-    -fx-font-size: 15;
-    -fx-background-color: #e7e7e7;
-}
-
 #errorLabel {
     -fx-font-family: "Orkney Light";
     -fx-font-size: 17;
@@ -97,18 +58,8 @@
     -fx-text-fill: red;
 }
 
-#tab-label {
+.button {
     -fx-font-family: "Orkney Light";
-    -fx-font-size: 25;
+    -fx-font-size: 15;
+    -fx-background-color: #e7e7e7;
 }
-
-#profile-label {
-    -fx-font-family: "Orkney Light";
-    -fx-font-size: 30;
-}
-
-#profile-small-label {
-    -fx-font-family: "Orkney Light";
-    -fx-font-size: 25;
-}
-

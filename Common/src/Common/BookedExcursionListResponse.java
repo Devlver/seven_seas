@@ -3,11 +3,11 @@ package Common;
 import java.util.ArrayList;
 
 public class BookedExcursionListResponse extends Response {
-	private ArrayList<BookedExcursion> excursions;
+	private final ArrayList<BookedExcursion> excursions;
 	
-	public BookedExcursionListResponse(Code c, ArrayList<BookedExcursion> a) {
+	public BookedExcursionListResponse(Code c, ArrayList<BookedExcursion> excursions) {
 		super(c);
-		excursions = a;
+		this.excursions = excursions;
 	}
 	
 	public ArrayList<BookedExcursion> getExcursions() {

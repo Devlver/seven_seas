@@ -1,8 +1,10 @@
 package GUI.InitialView;
 
+import Common.Code;
 import GUI.Animation;
 import GUI.ExceptionDialog;
 import GUI.Network.Account;
+import com.jfoenix.controls.JFXButton;
 import javafx.animation.FadeTransition;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -29,11 +31,13 @@ import java.util.ResourceBundle;
 public final class InitialViewController implements Initializable {
 	// Duration of fade animation between login and registration views in milliseconds
 	private final double fadeDuration = 300.0;
+	
 	// Labels
 	@FXML
 	private Label errorLabelLogin;
 	@FXML
 	private Label errorLabelRegistration;
+	
 	// Text fields
 	@FXML
 	private TextField fieldLoginUsername;
@@ -49,9 +53,11 @@ public final class InitialViewController implements Initializable {
 	private TextField fieldRegistrationCabin;
 	@FXML
 	private TextField fieldRegistrationPassword;
+	
 	// Indicators
 	@FXML
 	private ProgressIndicator progressIndicator;
+	
 	// Panes
 	@FXML
 	private AnchorPane root;
@@ -63,6 +69,13 @@ public final class InitialViewController implements Initializable {
 	private AnchorPane root4;
 	@FXML
 	private StackPane rootNode;
+	
+	// Buttons
+	@FXML
+	private JFXButton loginButton;
+	
+	@FXML
+	private JFXButton signupButton;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -86,6 +99,7 @@ public final class InitialViewController implements Initializable {
 	private void Authenticate() {
 		SetLoading(true);
 		errorLabelLogin.setText("");
+		errorLabelLogin.setStyle("-fx-text-fill: red");
 		
 		if (fieldLoginUsername.getText().isEmpty()) {
 			errorLabelLogin.setText("Username cannot be empty");
@@ -94,18 +108,18 @@ public final class InitialViewController implements Initializable {
 			errorLabelLogin.setText("Password cannot be empty");
 			SetLoading(false);
 		} else {
-			Task<Boolean> task = new Task<Boolean>() {
+			Task<Code> task = new Task<Code>() {
 				@Override
-				protected Boolean call() throws IOException, ClassNotFoundException {
+				protected Code call() throws IOException, ClassNotFoundException {
 					SetLoading(true);
 					return Account.Authorize(fieldLoginUsername.getText(), fieldLoginPassword.getText());
 				}
 			};
 			
 			task.setOnSucceeded(e -> {
-				boolean success = task.getValue();
+				Code code = task.getValue();
 				
-				if (success) {
+				if (code == Code.AUTHENTICATE_SUCCESS) {
 					Task<Integer> task2 = new Task<Integer>() {
 						@Override
 						protected Integer call() throws IOException, ClassNotFoundException {
@@ -115,7 +129,26 @@ public final class InitialViewController implements Initializable {
 					
 					task2.setOnSucceeded(event -> {
 						Account.setCurrentUser(task2.getValue());
-						SwitchScene();
+						SwitchScene(false);
+					});
+					
+					task2.setOnFailed(event -> {
+						errorLabelLogin.setText("Server error has occurred");
+						new ExceptionDialog(rootNode, (Exception) e.getSource().getException()).show();
+					});
+					
+					new Thread(task2).start();
+				} else if (code == Code.AUTHENTICATE_SUCCESS_ADMIN) {
+					Task<Integer> task2 = new Task<Integer>() {
+						@Override
+						protected Integer call() throws IOException, ClassNotFoundException {
+							return Account.GetUserId(fieldLoginUsername.getText());
+						}
+					};
+					
+					task2.setOnSucceeded(event -> {
+						Account.setCurrentUser(task2.getValue());
+						SwitchScene(true);
 					});
 					
 					task2.setOnFailed(event -> {
@@ -141,9 +174,14 @@ public final class InitialViewController implements Initializable {
 		}
 	}
 	
-	private void SwitchScene() {
+	private void SwitchScene(boolean admin) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("../Resources/fxml/mainView.fxml"));
+			Parent root;
+			
+			if (admin)
+				root = FXMLLoader.load(getClass().getResource("../Resources/fxml/adminView.fxml"));
+			else
+				root = FXMLLoader.load(getClass().getResource("../Resources/fxml/mainView.fxml"));
 			
 			FadeTransition transition = new FadeTransition();
 			transition.setDuration(Duration.millis(350));
@@ -168,6 +206,7 @@ public final class InitialViewController implements Initializable {
 	private void Register() {
 		SetLoading(true);
 		errorLabelRegistration.setText("");
+		errorLabelLogin.setStyle("-fx-text-fill: red");
 		
 		if (fieldRegistrationUsername.getText().isEmpty()) {
 			errorLabelRegistration.setText("Username cannot be empty!");
@@ -207,6 +246,7 @@ public final class InitialViewController implements Initializable {
 				if (success) {
 					FadeToLogin();
 					errorLabelLogin.setText("Registration complete. Now log in");
+					errorLabelLogin.setStyle("-fx-text-fill: green");
 				} else {
 					errorLabelRegistration.setText("This username or email already exists");
 				}
@@ -239,6 +279,9 @@ public final class InitialViewController implements Initializable {
 		
 		root3.toFront();
 		root4.toFront();
+		
+		loginButton.setDefaultButton(false);
+		signupButton.setDefaultButton(true);
 	}
 	
 	/**
@@ -255,6 +298,9 @@ public final class InitialViewController implements Initializable {
 		
 		root.toFront();
 		root2.toFront();
+		
+		loginButton.setDefaultButton(true);
+		signupButton.setDefaultButton(false);
 	}
 	
 	private void SetLoading(boolean x) {

@@ -3,11 +3,12 @@ package Common;
 public class AuthRequest extends Request {
 	private final String username;
 	private final String password;
+	private boolean admin;
 	
-	public AuthRequest(Code c, String uname, String pword) {
+	public AuthRequest(Code c, String username, String password) {
 		super(c);
-		username = uname;
-		password = pword;
+		this.username = username;
+		this.password = password;
 	}
 	
 	public String getUsername() {

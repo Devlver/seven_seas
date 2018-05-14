@@ -5,31 +5,25 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.io.Serializable;
 
 public class Excursion extends RecursiveTreeObject<Excursion> implements Serializable {
-	private final String PortId;
-	private final String Name;
-	private final int Id;
-	private final String Status;
+	private final String portId;
+	private final String name;
+	private final int id;
 	
 	public Excursion(int id, String portId, String name, String status) {
-		Id = id;
-		PortId = portId;
-		Name = name;
-		Status = status;
+		this.id = id;
+		this.portId = portId;
+		this.name = name;
 	}
 	
 	public int getId() {
-		return Id;
+		return id;
 	}
 	
 	public String getPortId() {
-		return PortId;
+		return portId;
 	}
 	
 	public String getName() {
-		return Name;
-	}
-	
-	public String getStatus() {
-		return Status;
+		return name;
 	}
 }

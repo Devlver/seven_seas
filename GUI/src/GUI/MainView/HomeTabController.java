@@ -23,10 +23,10 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class HomeTabController {
-	private MainViewController main;
+class HomeTabController {
+	private final MainViewController main;
 	
-	public HomeTabController(MainViewController controller) {
+	HomeTabController(MainViewController controller) {
 		main = controller;
 	}
 	
@@ -34,7 +34,7 @@ public class HomeTabController {
 	 * Populates the Home tab table
 	 */
 	@FXML
-	public void PopulateExcursionList() {
+	void PopulateExcursionList() {
 		main.SetLoading(true);
 		Task<ExcursionListResponse> task = new Task<ExcursionListResponse>() {
 			@Override
@@ -81,7 +81,7 @@ public class HomeTabController {
 	 * Books a selected excursion
 	 */
 	@FXML
-	public void Book() {
+	void Book() {
 		main.getErrorLabelHome().setText("");
 		
 		TreeItem<Excursion> ex = main.getExcursionTable().getSelectionModel().getSelectedItem();
@@ -166,7 +166,7 @@ public class HomeTabController {
 	 */
 	//TODO: implement
 	@FXML
-	public void Search() {
+	void Search() {
 		main.getErrorLabelHome().setText("");
 		
 		String searchQuery = main.getSearchField().getText();

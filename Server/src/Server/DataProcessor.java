@@ -2,7 +2,9 @@ package Server;
 
 import Common.*;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -15,7 +17,7 @@ class DataProcessor {
 	 * @throws IOException            IOException
 	 * @throws ClassNotFoundException ClassNotFoundException
 	 */
-	public byte[] Process(byte[] input) throws IOException, ClassNotFoundException {
+	byte[] Process(byte[] input) throws IOException, ClassNotFoundException {
 		// Two streams are required to deserialize the byte array received
 		// ByteArrayInputStream is able to read a byte array
 		// While ObjectInputStream is able to convert it to our custom defined class
@@ -44,12 +46,9 @@ class DataProcessor {
 				// Based on the result, we serialize a new Common.Response object with a proper server code, indicating either
 				// a fail or a success
 				try {
-					if (Authorize(reqPacket.getUsername(), reqPacket.getPassword(), true)) {
-						return new Response(Code.AUTHENTICATE_SUCCESS).GetSerialized();
-					} else {
-						return new Response(Code.AUTHENTICATE_FAIL).GetSerialized();
-					}
+					return new Response(Authorize(reqPacket.getUsername(), reqPacket.getPassword(), true)).GetSerialized();
 				} catch (SQLException e) {
+					e.printStackTrace();
 					return new Response(Code.FAIL).GetSerialized();
 				}
 			}
@@ -63,12 +62,9 @@ class DataProcessor {
 				ois2.close();
 				
 				try {
-					if (Authorize(reqPacket.getUsername(), reqPacket.getPassword(), false)) {
-						return new Response(Code.AUTHENTICATE_SUCCESS).GetSerialized();
-					} else {
-						return new Response(Code.AUTHENTICATE_EMAIL).GetSerialized();
-					}
+					return new Response(Authorize(reqPacket.getUsername(), reqPacket.getPassword(), false)).GetSerialized();
 				} catch (SQLException e) {
+					e.printStackTrace();
 					return new Response(Code.FAIL).GetSerialized();
 				}
 			}
@@ -88,6 +84,7 @@ class DataProcessor {
 						return new Response(Code.REGISTRATION_FAIL).GetSerialized();
 					}
 				} catch (Exception e) {
+					e.printStackTrace();
 					return new Response(Code.FAIL).GetSerialized();
 				}
 			}
@@ -95,30 +92,30 @@ class DataProcessor {
 				ByteArrayInputStream bais4 = new ByteArrayInputStream(input);
 				ObjectInputStream ois4 = new ObjectInputStream(bais4);
 				
-				IdRequest reqPacket = (IdRequest) ois4.readObject();
+				UserDetailsRequest reqPacket = (UserDetailsRequest) ois4.readObject();
 				
 				bais4.close();
 				ois4.close();
 				
 				try {
-					return new IdResponse(Code.SUCCESS, GetUserId(reqPacket.getUser(), true)).GetSerialized();
+					return new UserDetailsResponse(Code.SUCCESS, GetUserId(reqPacket.getUsername(), true)).GetSerialized();
 				} catch (Exception e) {
-					return new IdResponse(Code.FAIL, -1).GetSerialized();
+					return new UserDetailsResponse(Code.FAIL, -1).GetSerialized();
 				}
 			}
 			case GET_USER_ID_BY_USERNAME: {
 				ByteArrayInputStream bais5 = new ByteArrayInputStream(input);
 				ObjectInputStream ois5 = new ObjectInputStream(bais5);
 				
-				IdRequest reqPacket = (IdRequest) ois5.readObject();
+				UserDetailsRequest reqPacket = (UserDetailsRequest) ois5.readObject();
 				
 				bais5.close();
 				ois5.close();
 				
 				try {
-					return new IdResponse(Code.SUCCESS, GetUserId(reqPacket.getUser(), false)).GetSerialized();
+					return new UserDetailsResponse(Code.SUCCESS, GetUserId(reqPacket.getUsername(), false)).GetSerialized();
 				} catch (Exception e) {
-					return new IdResponse(Code.FAIL, -1).GetSerialized();
+					return new UserDetailsResponse(Code.FAIL, -1).GetSerialized();
 				}
 			}
 			case GET_EXCURSIONS: {
@@ -137,7 +134,7 @@ class DataProcessor {
 				
 				try {
 					return new Response(Book(request.getUserId(), request.getExcursionId(),
-							request.getDate(), request.getPassengerCount())).GetSerialized();
+							request.getDate(), request.getPassengerNumber())).GetSerialized();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 					return new Response(Code.FAIL).GetSerialized();
@@ -185,11 +182,24 @@ class DataProcessor {
 					return new Response(Code.FAIL).GetSerialized();
 				}
 			}
+			case ADMIN_BOOKINGS_REQUEST: {
+				ByteArrayInputStream bais8 = new ByteArrayInputStream(input);
+				ObjectInputStream ois8 = new ObjectInputStream(bais8);
+				
+				IndividualRequest request = (IndividualRequest) ois8.readObject();
+				
+				try {
+					return new AdminBookingResponse(Code.SUCCESS, GetAdminBookings(request.getId())).GetSerialized();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					return new AdminBookingResponse(Code.FAIL, null).GetSerialized();
+				}
+			}
+			default: {
+				return new Response(Code.FAIL).GetSerialized();
+			}
 			
 		}
-		
-		// If a code was not understood return a new serialized Common.Response object with error code
-		return new Response(Code.FAIL).GetSerialized();
 	}
 	
 	/**
@@ -200,16 +210,16 @@ class DataProcessor {
 	 * @param email    True for email validation, false for username validation
 	 * @return Authentication result
 	 */
-	private boolean Authorize(String username, String password, boolean email) throws SQLException, ClassNotFoundException {
+	private Code Authorize(String username, String password, boolean email) throws SQLException, ClassNotFoundException {
 		boolean authenticationSuccess;
 		
 		String query;
 		
 		// Different queries for username and email validation
 		if (!email)
-			query = "SELECT hash FROM account WHERE username = ?";
+			query = "SELECT hash, admin_id FROM account WHERE username = ?";
 		else
-			query = "SELECT hash FROM account WHERE email = ?";
+			query = "SELECT hash, admin_id FROM account WHERE email = ?";
 		
 		
 		// Prepared statements protect against SQL injections
@@ -227,7 +237,15 @@ class DataProcessor {
 		
 		authenticationSuccess = BCrypt.checkpw(password, resHash);
 		
-		return authenticationSuccess;
+		Object admin = result.getObject("admin_id");
+		
+		if (authenticationSuccess) {
+			if (admin != null)
+				return Code.AUTHENTICATE_SUCCESS_ADMIN;
+			else
+				return Code.AUTHENTICATE_SUCCESS;
+		} else
+			return Code.AUTHENTICATE_FAIL;
 	}
 	
 	/**
@@ -241,7 +259,7 @@ class DataProcessor {
 	 * @return Creation success
 	 */
 	private boolean CreateUser(String email, String username, String fullName, String cabinNumber, String password) throws Exception {
-		String query = "INSERT INTO account(username, full_name, cabin_number, hash, email, admin)" +
+		String query = "INSERT INTO account(username, full_name, cabin_number, hash, email, admin_id)" +
 				" VALUES (?, ?, ?, ?, ?, ?)";
 		
 		// Prepared statements protect against SQL injections
@@ -257,7 +275,7 @@ class DataProcessor {
 		// Not an admin account. I suppose admin accounts would be created by hand via dedicated tool
 		// if it was a real world application. But for now we assume excursion administrator cannot register via
 		// client
-		statement.setBoolean(6, false);
+		statement.setNull(6, Types.INTEGER);
 		
 		statement.execute();
 		
@@ -405,7 +423,7 @@ class DataProcessor {
 		result.next();
 		
 		int exId = result.getInt(1);
-		System.out.println(exId);
+		
 		if(CheckExcursionAvailability(exId, date) >= 32)
 			return Code.BOOK_FULL;
 		
@@ -463,6 +481,24 @@ class DataProcessor {
 		
 		return resultPassenger;
 	}
+	
+	private ArrayList<AdminBooking> GetAdminBookings(int userId) throws SQLException, ClassNotFoundException {
+		String query = "SELECT admin_id FROM account WHERE id = ?";
+		
+		PreparedStatement statement = getPreparedStatement(query);
+		statement.setInt(1, userId);
+		
+		ResultSet result = statement.executeQuery();
+		result.next();
+		
+		int admin_id = result.getInt("admin_id");
+		
+		if (admin_id == 0)
+			return null;
+		
+		return null;
+	}
+	
 	
 	private PreparedStatement getPreparedStatement(String query) throws ClassNotFoundException, SQLException {
 		

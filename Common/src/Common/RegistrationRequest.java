@@ -7,13 +7,13 @@ public class RegistrationRequest extends Request {
 	private final String fullName;
 	private final String password;
 	
-	public RegistrationRequest(Code c, String mail, String uname, String cNumber, String fName, String pword) {
+	public RegistrationRequest(Code c, String email, String username, String cabinNumber, String fullName, String password) {
 		super(c);
-		email = mail;
-		username = uname;
-		cabinNumber = cNumber;
-		fullName = fName;
-		password = pword;
+		this.email = email;
+		this.username = username;
+		this.cabinNumber = cabinNumber;
+		this.fullName = fullName;
+		this.password = password;
 	}
 	
 	public String getEmail() {

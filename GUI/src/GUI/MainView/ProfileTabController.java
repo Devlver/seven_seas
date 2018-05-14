@@ -1,9 +1,5 @@
 package GUI.MainView;
 
-public class ProfileTabController {
-	private MainViewController main;
+class ProfileTabController {
 	
-	public ProfileTabController(MainViewController controller) {
-		main = controller;
-	}
 }

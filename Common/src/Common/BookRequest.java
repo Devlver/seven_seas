@@ -5,15 +5,15 @@ import java.sql.Date;
 public class BookRequest extends Request {
 	private final int userId;
 	private final int excursionId;
-	private final int passengerCount;
+	private final int passengerNumber;
 	private final Date date;
 	
-	public BookRequest(Code c, int user, int excId, Date dt, int passengers) {
+	public BookRequest(Code c, int userId, int excursionId, Date date, int passengerNumber) {
 		super(c);
-		date = dt;
-		userId = user;
-		excursionId = excId;
-		passengerCount = passengers;
+		this.date = date;
+		this.userId = userId;
+		this.excursionId = excursionId;
+		this.passengerNumber = passengerNumber;
 	}
 	
 	public Date getDate() {
@@ -28,7 +28,7 @@ public class BookRequest extends Request {
 		return userId;
 	}
 	
-	public int getPassengerCount() {
-		return passengerCount;
+	public int getPassengerNumber() {
+		return passengerNumber;
 	}
 }

@@ -1,9 +1,9 @@
 package Common;
 
-public class IndividualRequest extends Request {
+public class UserDetailsResponse extends Response {
 	private final int id;
 	
-	public IndividualRequest(Code c, int id) {
+	public UserDetailsResponse(Code c, int id) {
 		super(c);
 		this.id = id;
 	}

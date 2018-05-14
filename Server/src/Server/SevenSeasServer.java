@@ -7,8 +7,8 @@ import java.net.Socket;
 class SevenSeasServer {
 	private ServerSocket sock;
 	
-	SevenSeasServer(int port) throws IOException {
-		sock = new ServerSocket(port);
+	SevenSeasServer() throws IOException {
+		sock = new ServerSocket(5555);
 		System.out.println("Server started at " + sock.getLocalSocketAddress());
 		System.out.println("Waiting for clients...");
 	}
@@ -16,8 +16,10 @@ class SevenSeasServer {
 	/**
 	 * Starts the server
 	 */
-	public void Run() {
-		while (true) {
+	void Run() {
+		boolean running = true;
+		
+		while (running) {
 			try {
 				Socket client = sock.accept();
 				System.out.println("Received connection from" + client.getRemoteSocketAddress());
@@ -28,6 +30,7 @@ class SevenSeasServer {
 			// Even if an exception occurs, we don't want the server to shut down 
 			catch (Exception ex) {
 				ex.printStackTrace();
+				running = false;
 			}
 		}
 	}

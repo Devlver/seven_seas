@@ -8,7 +8,7 @@ import java.io.OutputStream;
 /**
  * Client socket for sending and receiving messages
  */
-public class SocketInstance {
+class SocketInstance {
 	private java.net.Socket sock;
 	
 	private SocketInstance() {
@@ -24,7 +24,7 @@ public class SocketInstance {
 	 *
 	 * @return SocketInstance client
 	 */
-	public static SocketInstance getInstance() {
+	static SocketInstance getInstance() {
 		return new SocketInstance();
 	}
 	
@@ -33,7 +33,7 @@ public class SocketInstance {
 	 *
 	 * @param bytes Byte array to send
 	 */
-	public void Send(byte[] bytes) throws IOException {
+	void Send(byte[] bytes) throws IOException {
 		OutputStream out = sock.getOutputStream();
 		out.write(bytes);
 	}
@@ -43,7 +43,7 @@ public class SocketInstance {
 	 *
 	 * @return Byte array received
 	 */
-	public byte[] Receive() throws IOException {
+	byte[] Receive() throws IOException {
 		InputStream is;
 		
 		is = sock.getInputStream();
@@ -57,11 +57,11 @@ public class SocketInstance {
 		}
 	}
 	
-	public InputStream getSocketInputStream() throws IOException {
+	InputStream getSocketInputStream() throws IOException {
 		return sock.getInputStream();
 	}
 	
-	public void Close() {
+	void Close() {
 		try {
 			sock.close();
 		} catch (IOException e) {

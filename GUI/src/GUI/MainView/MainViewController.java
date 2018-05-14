@@ -31,9 +31,6 @@ public class MainViewController implements Initializable {
 	private JFXTextField searchField;
 	
 	@FXML
-	private JFXButton bookButton;
-	
-	@FXML
 	private JFXHamburger hamburger;
 	
 	@FXML
@@ -58,6 +55,15 @@ public class MainViewController implements Initializable {
 	private Label errorLabelBookings;
 	
 	@FXML
+	private Label profileUsernameLabel;
+	
+	@FXML
+	private Label profileNameLabel;
+	
+	@FXML
+	private Label profileEmailLabel;
+	
+	@FXML
 	private JFXTreeTableView<Excursion> excursionTable;
 	
 	@FXML
@@ -65,8 +71,6 @@ public class MainViewController implements Initializable {
 	
 	private HomeTabController homeTabController;
 	private BookingTabController bookingTabController;
-	private ProfileTabController profileTabController;
-	private SettingsTabController settingsTabController;
 	
 	/**
 	 * Called when a main scene is created
@@ -77,8 +81,6 @@ public class MainViewController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		homeTabController = new HomeTabController(this);
 		bookingTabController = new BookingTabController(this);
-		profileTabController = new ProfileTabController(this);
-		settingsTabController = new SettingsTabController(this);
 		
 		FadeTransition fade = new FadeTransition();
 		fade.setDuration(Duration.millis(800));
@@ -249,4 +251,13 @@ public class MainViewController implements Initializable {
 	public JFXTextField getSearchField() {
 		return searchField;
 	}
+	
+	public Label getProfileUsernameLabel() {
+		return profileUsernameLabel;
+	}
+	
+	public Label getProfileNameLabel() {
+		return profileNameLabel;
+	}
+	
 }

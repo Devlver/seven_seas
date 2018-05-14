@@ -508,7 +508,7 @@ class BCrypt {
 	 *                 using Server.BCrypt.gensalt)
 	 * @return the hashed password
 	 */
-	public static String hashpw(String password, String salt) {
+	static String hashpw(String password, String salt) {
 		BCrypt B;
 		String real_salt;
 		byte passwordb[], saltb[], hashed[];
@@ -610,7 +610,7 @@ class BCrypt {
 	 *
 	 * @return an encoded salt value
 	 */
-	public static String gensalt() {
+	static String gensalt() {
 		return gensalt(GENSALT_DEFAULT_LOG2_ROUNDS);
 	}
 	
@@ -622,7 +622,7 @@ class BCrypt {
 	 * @param hashed    the previously-hashed password
 	 * @return true if the passwords match, false otherwise
 	 */
-	public static boolean checkpw(String plaintext, String hashed) {
+	static boolean checkpw(String plaintext, String hashed) {
 		byte hashed_bytes[];
 		byte try_bytes[];
 		try {

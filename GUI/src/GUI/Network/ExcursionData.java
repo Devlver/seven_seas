@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class ExcursionData {
 	public static ExcursionListResponse GetExcursions() throws IOException, ClassNotFoundException {
@@ -89,5 +90,20 @@ public class ExcursionData {
 		sock.Close();
 		
 		return response.getCode();
+	}
+	
+	public static ArrayList<AdminBooking> GetAdminBookings(int adminId) throws IOException, ClassNotFoundException {
+		SocketInstance sock = SocketInstance.getInstance();
+		
+		sock.Send(new IndividualRequest(Code.ADMIN_BOOKINGS_REQUEST, adminId).GetSerialized());
+		
+		ObjectInputStream os = new ObjectInputStream(sock.getSocketInputStream());
+		
+		AdminBookingResponse response = (AdminBookingResponse) os.readObject();
+		
+		os.close();
+		sock.Close();
+		
+		return response.getBookings();
 	}
 }

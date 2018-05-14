@@ -1,20 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXDrawer?>
-<?import com.jfoenix.controls.JFXHamburger?>
-<?import com.jfoenix.controls.JFXSpinner?>
-<?import com.jfoenix.controls.JFXTabPane?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXTreeTableView?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TreeTableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <StackPane fx:id="parent" stylesheets="@../css/mainViewStyle.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MainView.MainViewController">
     <AnchorPane fx:id="rootAnchor" prefHeight="768.0" prefWidth="1366.0">
         <JFXTabPane layoutX="112.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1254.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="131.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -38,35 +26,48 @@
             </Tab>
             <Tab closable="false" text="Bookings">
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <Label id="tab-label" text="Your bookings" />
+                    <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Label id="tab-label" text="Your bookings"/>
                         <AnchorPane prefHeight="88.0" prefWidth="1254.0">
-                           <children>
-                              <JFXButton id="drawer-button" layoutY="-3.0" onAction="#EditBooking" prefHeight="35.0" prefWidth="90.0" text="Edit" AnchorPane.leftAnchor="0.0" />
-                              <JFXButton id="drawer-button" layoutX="97.0" layoutY="-3.0" onAction="#CancelBooking" prefHeight="35.0" prefWidth="90.0" text="Cancel" />
-                              <Label id="errorLabel" fx:id="errorLabelBookings" layoutX="1155.0" layoutY="3.0" AnchorPane.rightAnchor="99.0" />
-                              <JFXButton id="drawer-button" layoutX="200.0" layoutY="-3.0" onAction="#PopulateBookedList" prefHeight="35.0" prefWidth="90.0" text="Refresh" />
-                           </children>
+                            <JFXButton id="drawer-button" layoutY="-3.0" onAction="#EditBooking" prefHeight="35.0"
+                                       prefWidth="90.0" text="Edit" AnchorPane.leftAnchor="0.0"/>
+                            <JFXButton id="drawer-button" layoutX="97.0" layoutY="-3.0" onAction="#CancelBooking"
+                                       prefHeight="35.0" prefWidth="90.0" text="Cancel"/>
+                            <Label id="errorLabel" fx:id="errorLabelBookings" layoutX="1155.0" layoutY="3.0"
+                                   AnchorPane.rightAnchor="99.0"/>
+                            <JFXButton id="drawer-button" layoutX="200.0" layoutY="-3.0" onAction="#PopulateBookedList"
+                                       prefHeight="35.0" prefWidth="90.0" text="Refresh"/>
                         </AnchorPane>
-                        <JFXTreeTableView fx:id="bookedTable" prefHeight="737.0" prefWidth="1254.0" showRoot="false" sortMode="ONLY_FIRST_LEVEL" VBox.vgrow="ALWAYS">
-                           <columnResizePolicy>
-                              <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
+                        <JFXTreeTableView fx:id="bookedTable" prefHeight="737.0" prefWidth="1254.0" showRoot="false"
+                                          sortMode="ONLY_FIRST_LEVEL" VBox.vgrow="ALWAYS">
+                            <columnResizePolicy>
+                                <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                            </columnResizePolicy>
                         </JFXTreeTableView>
-                     </children>
-                  </VBox>
-               </children></AnchorPane>
+                    </VBox>
+                </AnchorPane>
             </Tab>
             <Tab closable="false" text="Profile">
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <Label id="profile-label" layoutX="39.0" layoutY="40.0" text="Username:"/>
+                    <Label id="profile-label" layoutX="40.0" layoutY="100.0" text="Your name:"/>
+                    <Label id="profile-label" layoutX="40.0" layoutY="160.0" text="Cabin number:"/>
+                    <Label id="profile-label" layoutX="40.0" layoutY="220.0" text="E-mail:"/>
+                    <Label id="profile-label" layoutX="39.0" layoutY="280.0" text="Password:"/>
+                    <JFXButton id="drawer-button" layoutX="281.0" layoutY="285.0" prefHeight="32.0" prefWidth="131.0"
+                               text="Change"/>
+                    <Label id="profile-small-label" fx:id="profileUsernameLabel" layoutX="278.0" layoutY="45.0"/>
+                    <Label id="profile-small-label" fx:id="profileNameLabel" layoutX="278.0" layoutY="105.0"/>
+                    <Label id="profile-small-label" fx:id="profileCabinLabel" layoutX="278.0" layoutY="165.0"/>
+                    <Label id="profile-small-label" fx:id="profileEmailLabel" layoutX="278.0" layoutY="225.0"/>
+                </AnchorPane>
             </Tab>
             <Tab closable="false" text="Settings">
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
             </Tab>
         </JFXTabPane>
-        <JFXHamburger fx:id="hamburger" prefHeight="45.0" prefWidth="131.0" />
+        <JFXHamburger fx:id="hamburger" prefHeight="46.0" prefWidth="131.0"/>
         <JFXDrawer fx:id="drawer" defaultDrawerSize="131.0" layoutY="46.0" prefHeight="722.0" prefWidth="131.0" resizeContent="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="46.0">
             <VBox fx:id="drawerSidePane" alignment="BOTTOM_CENTER" prefHeight="103.0" prefWidth="131.0">
                 <JFXButton id="drawer-button" onAction="#SwitchScene" prefHeight="52.0" prefWidth="131.0" text="Log out" />

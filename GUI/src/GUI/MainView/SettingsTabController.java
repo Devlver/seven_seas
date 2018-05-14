@@ -1,9 +1,5 @@
 package GUI.MainView;
 
-public class SettingsTabController {
-	private MainViewController main;
+class SettingsTabController {
 	
-	public SettingsTabController(MainViewController controller) {
-		main = controller;
-	}
 }

@@ -12,7 +12,7 @@ public final class Animation {
 	 * Fades the specified node in to a specified max value or out
 	 *
 	 * @param node          Node to be animated
-	 * @param duration      GUI.Animation duration
+	 * @param duration      Animation duration
 	 * @param targetOpacity Target opacity value where target <= 1.0
 	 */
 	public static void Fade(Node node, double duration, double targetOpacity) {

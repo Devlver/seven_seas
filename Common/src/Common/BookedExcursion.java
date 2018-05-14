@@ -6,43 +6,43 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class BookedExcursion extends RecursiveTreeObject<BookedExcursion> implements Serializable {
-	private int Id;
-	private String Name;
-	private String Port;
-	private int Passengers;
-	private String Status;
-	private Date Date;
+	private final int id;
+	private final String name;
+	private final String port;
+	private final int passengerNumber;
+	private final String status;
+	private final Date date;
 	
-	public BookedExcursion(int id, String name, String port, String status, int passengers, Date date) {
-		Id = id;
-		Name = name;
-		Port = port;
-		Status = status;
-		Date = date;
-		Passengers = passengers;
+	public BookedExcursion(int id, String name, String port, String status, int passengerNumber, Date date) {
+		this.id = id;
+		this.name = name;
+		this.port = port;
+		this.status = status;
+		this.date = date;
+		this.passengerNumber = passengerNumber;
 	}
 	
 	public String getName() {
-		return Name;
+		return name;
 	}
 	
 	public String getPort() {
-		return Port;
+		return port;
 	}
 	
 	public String getStatus() {
-		return Status;
+		return status;
 	}
 	
 	public Date getDate() {
-		return Date;
+		return date;
 	}
 	
 	public int getId() {
-		return Id;
+		return id;
 	}
 	
-	public String getPassengers() {
-		return String.valueOf(Passengers);
+	public String getPassengerNumber() {
+		return String.valueOf(passengerNumber);
 	}
 }

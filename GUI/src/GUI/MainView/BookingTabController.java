@@ -20,8 +20,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
-public class BookingTabController {
-	private MainViewController main;
+class BookingTabController {
+	private final MainViewController main;
 	
 	BookingTabController(MainViewController controller) {
 		main = controller;
@@ -31,7 +31,7 @@ public class BookingTabController {
 	 * Populates the Booking tab table
 	 */
 	@FXML
-	public void PopulateBookedList() {
+	void PopulateBookedList() {
 		main.SetLoading(true);
 		Task<BookedExcursionListResponse> task = new Task<BookedExcursionListResponse>() {
 			@Override
@@ -58,7 +58,7 @@ public class BookingTabController {
 			
 			nameCol.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getValue().getName()));
 			portCol.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getValue().getPort()));
-			passengerCol.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getValue().getPassengers()));
+			passengerCol.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getValue().getPassengerNumber()));
 			dateCol.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getValue().getDate().toString()));
 			statusCol.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getValue().getStatus()));
 			
@@ -66,7 +66,6 @@ public class BookingTabController {
 				TreeTableRow<BookedExcursion> row = new TreeTableRow<>();
 				row.setOnMouseClicked(event1 -> {
 					if (!row.isEmpty() && event1.getButton() == MouseButton.PRIMARY && event1.getClickCount() == 2) {
-						System.out.println("Double-clicked");
 						main.EditBooking();
 					}
 					
@@ -76,6 +75,7 @@ public class BookingTabController {
 			
 			final TreeItem<BookedExcursion> root = new RecursiveTreeItem<>(excursions, RecursiveTreeObject::getChildren);
 			
+			//noinspection unchecked
 			main.getBookedTable().getColumns().setAll(nameCol, portCol, passengerCol, dateCol, statusCol);
 			
 			main.getBookedTable().setRoot(root);
@@ -101,7 +101,7 @@ public class BookingTabController {
 	 * Cancels a booking
 	 */
 	@FXML
-	public void CancelBooking() {
+	void CancelBooking() {
 		main.getErrorLabelBookings().setText("");
 		TreeItem<BookedExcursion> selected = main.getBookedTable().getSelectionModel().getSelectedItem();
 		
@@ -179,7 +179,7 @@ public class BookingTabController {
 	 * Edits a selected booking
 	 */
 	@FXML
-	public void EditBooking() {
+	void EditBooking() {
 		main.getErrorLabelBookings().setText("");
 		
 		TreeItem<BookedExcursion> selected = main.getBookedTable().getSelectionModel().getSelectedItem();

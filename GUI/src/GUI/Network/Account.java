@@ -2,7 +2,6 @@ package GUI.Network;
 
 import Common.*;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
@@ -24,7 +23,7 @@ public final class Account {
 	 * @param password Password
 	 * @return Authorization status
 	 */
-	public static boolean Authorize(String username, String password) throws ClassNotFoundException, IOException {
+	public static Code Authorize(String username, String password) throws ClassNotFoundException, IOException {
 		SocketInstance sock = SocketInstance.getInstance();
 		
 		AuthRequest packet;
@@ -38,8 +37,6 @@ public final class Account {
 		
 		sock.Send(packet.GetSerialized());
 		
-		//byte[] response = sock.Receive();
-		
 		Response responsePacket;
 		
 		ObjectInputStream os = new ObjectInputStream(sock.getSocketInputStream());
@@ -49,7 +46,7 @@ public final class Account {
 		os.close();
 		sock.Close();
 		
-		return responsePacket.getCode() == Code.AUTHENTICATE_SUCCESS;
+		return responsePacket.getCode();
 	}
 	
 	/**
@@ -69,11 +66,11 @@ public final class Account {
 		
 		sock.Send(packet.GetSerialized());
 		
-		byte[] response = sock.Receive();
+		//byte[] response = sock.Receive();
 		Response responsePacket;
 		
-		ByteArrayInputStream baos = new ByteArrayInputStream(response);
-		ObjectInputStream os = new ObjectInputStream(baos);
+		//ByteArrayInputStream baos = new ByteArrayInputStream(response);
+		ObjectInputStream os = new ObjectInputStream(sock.getSocketInputStream());
 		
 		responsePacket = (Response) os.readObject();
 		
@@ -95,20 +92,16 @@ public final class Account {
 		Request request;
 		
 		if (ValidateEmail(username)) {
-			request = new IdRequest(Code.GET_USER_ID_BY_EMAIL, username);
+			request = new UserDetailsRequest(Code.GET_USER_ID_BY_EMAIL, username);
 		} else
-			request = new IdRequest(Code.GET_USER_ID_BY_USERNAME, username);
+			request = new UserDetailsRequest(Code.GET_USER_ID_BY_USERNAME, username);
 		
 		sock.Send(request.GetSerialized());
 		
-		byte[] response = sock.Receive();
+		UserDetailsResponse responsePacket;
+		ObjectInputStream os = new ObjectInputStream(sock.getSocketInputStream());
 		
-		IdResponse responsePacket;
-		
-		ByteArrayInputStream baos = new ByteArrayInputStream(response);
-		ObjectInputStream os = new ObjectInputStream(baos);
-		
-		responsePacket = (IdResponse) os.readObject();
+		responsePacket = (UserDetailsResponse) os.readObject();
 		
 		os.close();
 		sock.Close();

@@ -12,8 +12,8 @@ import java.io.Serializable;
 public class Request implements Serializable {
 	private final Code code;
 	
-	public Request(Code c) {
-		code = c;
+	public Request(Code code) {
+		this.code = code;
 	}
 	
 	/**

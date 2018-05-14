@@ -32,10 +32,10 @@ class Client extends Thread {
 					cl.close();
 					running = false;
 				} catch (ClassNotFoundException e) {
-					System.out.println(e.toString());
+					e.printStackTrace();
 				}
 			} catch (IOException e) {
-				//
+				e.printStackTrace();
 			}
 		}
 		
