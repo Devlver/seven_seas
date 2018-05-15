@@ -51,6 +51,11 @@
     -fx-background-color: BLUEVIOLET;
 }
 
+.table-column {
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+}
+
 #errorLabel {
     -fx-font-family: "Orkney Light";
     -fx-font-size: 17;

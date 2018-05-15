@@ -11,10 +11,11 @@
                     <HBox prefHeight="100.0" prefWidth="1306.0">
                         <AnchorPane prefHeight="100.0" prefWidth="1306.0">
                             <JFXTextField fx:id="searchField" focusColor="BLUEVIOLET" labelFloat="true" layoutY="50.0" prefHeight="34.0" prefWidth="550.0" promptText="Port or excursion name" AnchorPane.leftAnchor="0.0" />
-                            <JFXButton id="drawer-button" layoutX="585.0" layoutY="56.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#Search" prefHeight="31.0" prefWidth="70.0" text="Search" AnchorPane.bottomAnchor="13.0" AnchorPane.topAnchor="56.0" />
                             <JFXButton id="drawer-button" layoutX="671.0" layoutY="56.0" onAction="#PopulateExcursionList" text="Refresh" AnchorPane.bottomAnchor="13.0" AnchorPane.topAnchor="56.0" />
                             <Label id="errorLabel" fx:id="errorLabelHome" layoutX="839.0" layoutY="60.0" AnchorPane.leftAnchor="839.0" />
-                     <JFXButton id="drawer-button" fx:id="bookButton" layoutX="756.0" layoutY="57.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#Book" prefHeight="31.0" prefWidth="70.0" text="Book" AnchorPane.bottomAnchor="12.0" AnchorPane.topAnchor="57.0" />
+                            <JFXButton id="drawer-button" layoutX="756.0" layoutY="57.0" maxHeight="-Infinity"
+                                       maxWidth="-Infinity" onAction="#Book" prefHeight="31.0" prefWidth="70.0"
+                                       text="Book" AnchorPane.bottomAnchor="12.0" AnchorPane.topAnchor="57.0"/>
                         </AnchorPane>
                     </HBox>
                     <JFXTreeTableView fx:id="excursionTable" prefHeight="623.0" prefWidth="1222.0" showRoot="false" sortMode="ONLY_FIRST_LEVEL" VBox.vgrow="ALWAYS">

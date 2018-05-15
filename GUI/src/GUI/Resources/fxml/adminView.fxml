@@ -6,37 +6,28 @@
 <?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.layout.*?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity"
-           minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0"
+           minHeight="-Infinity"
+           minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0"
            stylesheets="@../css/adminViewStyle.css" xmlns="http://javafx.com/javafx/8.0.141"
            fx:controller="GUI.AdminView.AdminController">
-    <children>
-        <JFXTabPane>
-            <tabs>
-                <Tab text="Home">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                            <children>
-                                <JFXTreeTableView fx:id="excursionTable" layoutY="86.0" prefHeight="636.0"
-                                                  prefWidth="1366.0" AnchorPane.bottomAnchor="0.0"
-                                                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                                  AnchorPane.topAnchor="86.0">
-                                    <columnResizePolicy>
-                                        <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-                                    </columnResizePolicy>
-                                </JFXTreeTableView>
-                                <Label id="errorLabel" fx:id="errorLabel" layoutX="1226.0" layoutY="60.0"
-                                       AnchorPane.rightAnchor="0.0"/>
-                                <JFXButton layoutY="29.0" prefHeight="31.0" prefWidth="70.0" text="Edit"/>
-                                <JFXButton layoutX="90.0" layoutY="29.0" prefHeight="31.0" prefWidth="70.0"
-                                           text="Cancel"/>
-                                <JFXButton layoutX="180.0" layoutY="29.0" onAction="#PopulateExcursionsTable"
-                                           prefHeight="31.0" prefWidth="83.0" text="Refresh"/>
-                            </children>
-                        </AnchorPane>
-                    </content>
-                </Tab>
-            </tabs>
-        </JFXTabPane>
-        <JFXSpinner fx:id="progressIndicator" radius="100.0" visible="false"/>
-    </children>
+    <JFXTabPane>
+        <Tab text="Home">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <JFXTreeTableView fx:id="bookingTable" layoutY="86.0" prefHeight="636.0" prefWidth="1366.0"
+                                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="86.0">
+                    <columnResizePolicy>
+                        <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </JFXTreeTableView>
+                <Label id="errorLabel" fx:id="errorLabel" layoutX="1226.0" layoutY="60.0"
+                       AnchorPane.rightAnchor="0.0"/>
+                <JFXButton layoutY="29.0" prefHeight="31.0" prefWidth="70.0" text="Edit"/>
+                <JFXButton layoutX="90.0" layoutY="29.0" prefHeight="31.0" prefWidth="70.0" text="Cancel"/>
+                <JFXButton layoutX="180.0" layoutY="29.0" onAction="#PopulateBookingsTable" prefHeight="31.0"
+                           prefWidth="83.0" text="Refresh"/>
+            </AnchorPane>
+        </Tab>
+    </JFXTabPane>
+    <JFXSpinner fx:id="progressIndicator" radius="100.0" visible="false"/>
 </StackPane>

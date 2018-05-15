@@ -2,14 +2,15 @@ package Common;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class AdminBooking extends RecursiveTreeObject<AdminBooking> {
+public class AdminBooking extends RecursiveTreeObject<AdminBooking> implements Serializable {
 	private final int bookingId;
-	private final String passengerName;
-	private final Date bookingDate;
 	private final int passengersNumber;
+	private final String passengerName;
 	private final String status;
+	private final Date bookingDate;
 	
 	public AdminBooking(int bookingId, String passengerName, Date bookingDate, int passengersNumber, String status) {
 		this.bookingId = bookingId;
@@ -23,8 +24,8 @@ public class AdminBooking extends RecursiveTreeObject<AdminBooking> {
 		return passengerName;
 	}
 	
-	public Date getBookingDate() {
-		return bookingDate;
+	public String getBookingDate() {
+		return bookingDate.toString();
 	}
 	
 	public String getPassengersNumber() {

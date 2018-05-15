@@ -13,7 +13,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import javafx.scene.input.MouseEvent;
@@ -21,7 +20,6 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 class HomeTabController {
 	private final MainViewController main;
@@ -43,10 +41,11 @@ class HomeTabController {
 			}
 		};
 		
-		task.setOnSucceeded((WorkerStateEvent event) ->
+		task.setOnSucceeded(event ->
 		{
 			ObservableList<Excursion> excursions = FXCollections.observableArrayList();
 			excursions.addAll(task.getValue().getExcursions());
+			
 			JFXTreeTableColumn<Excursion, String> portIdCol = new JFXTreeTableColumn<>("Port ID");
 			portIdCol.setSortable(false);
 			
@@ -62,7 +61,6 @@ class HomeTabController {
 			main.getExcursionTable().getColumns().setAll(nameCol, portIdCol);
 			
 			main.getExcursionTable().setRoot(root);
-			main.getExcursionTable().setShowRoot(false);
 			
 			main.getExcursionTable().sort();
 			
@@ -70,6 +68,7 @@ class HomeTabController {
 		});
 		
 		task.setOnFailed(event -> {
+			event.getSource().getException().printStackTrace();
 			main.SetLoading(false);
 			main.getErrorLabelHome().setText("Failed to retrieve excursions. Try again");
 		});
@@ -158,47 +157,6 @@ class HomeTabController {
 					new Thread(task).start();
 				}
 			});
-		}
-	}
-	
-	/**
-	 * Searches through excursions list
-	 */
-	//TODO: implement
-	@FXML
-	void Search() {
-		main.getErrorLabelHome().setText("");
-		
-		String searchQuery = main.getSearchField().getText();
-		if (searchQuery.isEmpty()) {
-			main.getErrorLabelHome().setText("Please enter a search query first");
-			return;
-		}
-		
-		ArrayList<TreeItem<Excursion>> excursions = new ArrayList<>();
-		
-		for (int i = 0; i < main.getExcursionTable().getCurrentItemsCount(); i++) {
-			excursions.add(main.getExcursionTable().getTreeItem(i));
-		}
-		
-		boolean found = false;
-		for (int i = 0; i < excursions.size(); i++) {
-			if (excursions.get(i).getValue().getName().toLowerCase().contains(searchQuery.toLowerCase())) {
-				main.getExcursionTable().getSelectionModel().select(i);
-				main.getExcursionTable().getSelectionModel().focus(i);
-				main.getExcursionTable().scrollTo(i);
-				found = true;
-			}
-		}
-		
-		if (!found) {
-			for (int i = 0; i < excursions.size(); i++) {
-				if (excursions.get(i).getValue().getPortId().toLowerCase().contains(searchQuery.toLowerCase())) {
-					main.getExcursionTable().getSelectionModel().select(i);
-					main.getExcursionTable().getSelectionModel().focus(i);
-					main.getExcursionTable().scrollTo(i);
-				}
-			}
 		}
 	}
 }

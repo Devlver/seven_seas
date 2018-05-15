@@ -29,7 +29,7 @@ public class AdminController implements Initializable {
 	private StackPane root;
 	
 	@FXML
-	private JFXTreeTableView excursionTable;
+	private JFXTreeTableView<AdminBooking> bookingTable;
 	
 	@FXML
 	private JFXSpinner progressIndicator;
@@ -39,12 +39,12 @@ public class AdminController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		excursionTable.setPlaceholder(new Text("No bookings yet"));
-		PopulateExcursionsTable();
+		bookingTable.setPlaceholder(new Text("No bookings yet"));
+		//PopulateBookingsTable();
 	}
 	
 	@FXML
-	private void PopulateExcursionsTable() {
+	private void PopulateBookingsTable() {
 		SetLoading(true);
 		
 		Task<ArrayList<AdminBooking>> task = new Task<ArrayList<AdminBooking>>() {
@@ -55,16 +55,12 @@ public class AdminController implements Initializable {
 		};
 		
 		task.setOnSucceeded(event -> {
-			ArrayList<AdminBooking> list = task.getValue();
-			
-			if (list == null) {
-				errorLabel.setText("Failed to retrieve bookings");
+			if (task.getValue() == null || task.getValue().isEmpty()) {
 				SetLoading(false);
 				return;
 			}
 			
-			ObservableList<AdminBooking> bookings = FXCollections.observableArrayList();
-			bookings.addAll(list);
+			ObservableList<AdminBooking> bookings = FXCollections.observableArrayList(task.getValue());
 			
 			JFXTreeTableColumn<AdminBooking, String> nameColumn = new JFXTreeTableColumn<>("Passenger name");
 			JFXTreeTableColumn<AdminBooking, String> dateColumn = new JFXTreeTableColumn<>("Date");
@@ -77,21 +73,24 @@ public class AdminController implements Initializable {
 			statusColumn.setSortable(false);
 			
 			nameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getValue().getPassengerName()));
-			dateColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getValue().getBookingDate().toString()));
+			dateColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getValue().getBookingDate()));
 			passengersColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getValue().getPassengersNumber()));
 			statusColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getValue().getStatus()));
 			
 			final TreeItem<AdminBooking> root = new RecursiveTreeItem<>(bookings, RecursiveTreeObject::getChildren);
 			
 			//noinspection unchecked
-			excursionTable.getColumns().setAll(nameColumn, dateColumn, passengersColumn, statusColumn);
+			bookingTable.getColumns().setAll(nameColumn, dateColumn, passengersColumn, statusColumn);
 			
-			excursionTable.setRoot(root);
+			bookingTable.setRoot(root);
+			
+			bookingTable.sort();
 			
 			SetLoading(false);
 		});
 		
 		task.setOnFailed(event -> {
+			event.getSource().getException().printStackTrace();
 			SetLoading(false);
 			errorLabel.setText("Failed to retrieve bookings. Try again later");
 		});

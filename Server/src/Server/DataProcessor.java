@@ -323,7 +323,7 @@ class DataProcessor {
 		ArrayList<Excursion> excursions = new ArrayList<>();
 		
 		while (result.next()) {
-			excursions.add(new Excursion(result.getInt("ID"), result.getString("PORT_ID"), result.getString("NAME"), ""));
+			excursions.add(new Excursion(result.getInt("ID"), result.getString("PORT_ID"), result.getString("NAME")));
 		}
 		
 		return excursions;
@@ -483,20 +483,38 @@ class DataProcessor {
 	}
 	
 	private ArrayList<AdminBooking> GetAdminBookings(int userId) throws SQLException, ClassNotFoundException {
-		String query = "SELECT admin_id FROM account WHERE id = ?";
+		String query = "SELECT booking.id, date, passenger_number, wait_list, full_name FROM booking INNER JOIN account" +
+				" ON user_id = account.id WHERE user_id IN(SELECT user_id FROM booking) AND excursion_id IN" +
+				"(SELECT id FROM excursion WHERE admin_id IN" +
+				"(SELECT admin_id FROM account WHERE id = ?))";
 		
 		PreparedStatement statement = getPreparedStatement(query);
 		statement.setInt(1, userId);
 		
 		ResultSet result = statement.executeQuery();
-		result.next();
 		
-		int admin_id = result.getInt("admin_id");
 		
-		if (admin_id == 0)
-			return null;
+		ArrayList<AdminBooking> retVal = new ArrayList<>();
 		
-		return null;
+		while (result.next()) {
+			if (!result.getBoolean("wait_list")) {
+				retVal.add(new AdminBooking(
+						result.getInt("id"),
+						result.getString("full_name"),
+						result.getDate("date"),
+						result.getInt("passenger_number"),
+						"Confirmed"));
+			} else {
+				retVal.add(new AdminBooking(
+						result.getInt("id"),
+						result.getString("full_name"),
+						result.getDate("date"),
+						result.getInt("passenger_number"),
+						"In a waiting list"));
+			}
+		}
+		
+		return retVal;
 	}
 	
 	

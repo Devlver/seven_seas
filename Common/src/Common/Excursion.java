@@ -9,7 +9,7 @@ public class Excursion extends RecursiveTreeObject<Excursion> implements Seriali
 	private final String name;
 	private final int id;
 	
-	public Excursion(int id, String portId, String name, String status) {
+	public Excursion(int id, String portId, String name) {
 		this.id = id;
 		this.portId = portId;
 		this.name = name;

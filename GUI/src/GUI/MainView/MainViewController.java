@@ -108,6 +108,11 @@ public class MainViewController implements Initializable {
 			});
 		});
 		
+		getSearchField().textProperty().addListener((observable, oldValue, newValue) ->
+				getExcursionTable().setPredicate(excursionTreeItem ->
+						excursionTreeItem.getValue().getName().contains(newValue.toUpperCase()) ||
+								excursionTreeItem.getValue().getPortId().contains(newValue.toUpperCase())));
+		
 		fade.play();
 		excursionTable.setPlaceholder(new Text("No excursions available at the moment"));
 		bookedTable.setPlaceholder(new Text("You have no bookings"));
@@ -155,22 +160,14 @@ public class MainViewController implements Initializable {
 	private void CancelBooking() {
 		bookingTabController.CancelBooking();
 	}
-	
-	/**
-	 * Searches through excursions list
-	 */
-	//TODO: implement
-	@FXML
-	private void Search() {
-		homeTabController.Search();
-	}
+
 	
 	/**
 	 * Set loading status
 	 *
 	 * @param x Status
 	 */
-	public void SetLoading(boolean x) {
+	void SetLoading(boolean x) {
 		rootAnchor.setDisable(x);
 		progressIndicator.setVisible(x);
 	}
@@ -213,50 +210,50 @@ public class MainViewController implements Initializable {
 	/**
 	 * @return JFXTreeTableView for booked excursions
 	 */
-	public JFXTreeTableView<BookedExcursion> getBookedTable() {
+	JFXTreeTableView<BookedExcursion> getBookedTable() {
 		return bookedTable;
 	}
 	
 	/**
 	 * @return Error label for bookings tab
 	 */
-	public Label getErrorLabelBookings() {
+	Label getErrorLabelBookings() {
 		return errorLabelBookings;
 	}
 	
 	/**
 	 * @return Root StackPane
 	 */
-	public StackPane getParent() {
+	StackPane getParent() {
 		return parent;
 	}
 	
 	/**
 	 * @return JFXTreeTableView for excursions
 	 */
-	public JFXTreeTableView<Excursion> getExcursionTable() {
+	JFXTreeTableView<Excursion> getExcursionTable() {
 		return excursionTable;
 	}
 	
 	/**
 	 * @return Error label for home tab
 	 */
-	public Label getErrorLabelHome() {
+	Label getErrorLabelHome() {
 		return errorLabelHome;
 	}
 	
 	/**
 	 * @return Search JFXTextField
 	 */
-	public JFXTextField getSearchField() {
+	JFXTextField getSearchField() {
 		return searchField;
 	}
 	
-	public Label getProfileUsernameLabel() {
+	Label getProfileUsernameLabel() {
 		return profileUsernameLabel;
 	}
 	
-	public Label getProfileNameLabel() {
+	Label getProfileNameLabel() {
 		return profileNameLabel;
 	}
 	
