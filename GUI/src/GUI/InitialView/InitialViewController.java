@@ -1,6 +1,7 @@
 package GUI.InitialView;
 
 import Common.Code;
+import Common.UserDetailsResponse;
 import GUI.Animation;
 import GUI.ExceptionDialog;
 import GUI.Network.Account;
@@ -120,40 +121,46 @@ public final class InitialViewController implements Initializable {
 				Code code = task.getValue();
 				
 				if (code == Code.AUTHENTICATE_SUCCESS) {
-					Task<Integer> task2 = new Task<Integer>() {
+					Task<UserDetailsResponse> task2 = new Task<UserDetailsResponse>() {
 						@Override
-						protected Integer call() throws IOException, ClassNotFoundException {
-							return Account.GetUserId(fieldLoginUsername.getText());
+						protected UserDetailsResponse call() throws IOException, ClassNotFoundException {
+							return Account.GetUserDetails(fieldLoginUsername.getText());
 						}
 					};
 					
 					task2.setOnSucceeded(event -> {
-						Account.setCurrentUser(task2.getValue());
+						Account.setCurrentUser(task2.getValue().getId());
+						Account.setUsername(task2.getValue().getUsername());
+						Account.setEmail(task2.getValue().getEmail());
+						Account.setCabinNumber(task2.getValue().getCabinNumber());
+						Account.setFullName(task2.getValue().getFullName());
 						SwitchScene(false);
 					});
 					
 					task2.setOnFailed(event -> {
 						errorLabelLogin.setText("Server error has occurred");
-						new ExceptionDialog(rootNode, (Exception) e.getSource().getException()).show();
+						e.getSource().getException().printStackTrace();
+						//e.getSource().getException().printStackTrace();
+						//new ExceptionDialog(rootNode, (Exception) e.getSource().getException()).show();
 					});
 					
 					new Thread(task2).start();
 				} else if (code == Code.AUTHENTICATE_SUCCESS_ADMIN) {
-					Task<Integer> task2 = new Task<Integer>() {
+					Task<UserDetailsResponse> task2 = new Task<UserDetailsResponse>() {
 						@Override
-						protected Integer call() throws IOException, ClassNotFoundException {
-							return Account.GetUserId(fieldLoginUsername.getText());
+						protected UserDetailsResponse call() throws IOException, ClassNotFoundException {
+							return Account.GetUserDetails(fieldLoginUsername.getText());
 						}
 					};
 					
 					task2.setOnSucceeded(event -> {
-						Account.setCurrentUser(task2.getValue());
+						Account.setCurrentUser(task2.getValue().getId());
 						SwitchScene(true);
 					});
 					
 					task2.setOnFailed(event -> {
 						errorLabelLogin.setText("Server error has occurred");
-						new ExceptionDialog(rootNode, (Exception) e.getSource().getException()).show();
+						event.getSource().getException().printStackTrace();
 					});
 					
 					new Thread(task2).start();

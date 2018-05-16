@@ -98,9 +98,9 @@ class DataProcessor {
 				ois4.close();
 				
 				try {
-					return new UserDetailsResponse(Code.SUCCESS, GetUserId(reqPacket.getUsername(), true)).GetSerialized();
+					return GetUserDetails(reqPacket.getUsername(), true).GetSerialized();
 				} catch (Exception e) {
-					return new UserDetailsResponse(Code.FAIL, -1).GetSerialized();
+					return new UserDetailsResponse(Code.FAIL, -1, null, null, null, null).GetSerialized();
 				}
 			}
 			case GET_USER_ID_BY_USERNAME: {
@@ -113,9 +113,10 @@ class DataProcessor {
 				ois5.close();
 				
 				try {
-					return new UserDetailsResponse(Code.SUCCESS, GetUserId(reqPacket.getUsername(), false)).GetSerialized();
+					return GetUserDetails(reqPacket.getUsername(), false).GetSerialized();
 				} catch (Exception e) {
-					return new UserDetailsResponse(Code.FAIL, -1).GetSerialized();
+					e.printStackTrace();
+					return new UserDetailsResponse(Code.FAIL, -1, null, null, null, null).GetSerialized();
 				}
 			}
 			case GET_EXCURSIONS: {
@@ -290,13 +291,13 @@ class DataProcessor {
 	 * @param email    Check against username or email
 	 * @return ID
 	 */
-	private int GetUserId(String username, boolean email) throws Exception {
+	private UserDetailsResponse GetUserDetails(String username, boolean email) throws Exception {
 		String query;
 		
 		if (email) {
-			query = "SELECT id FROM account WHERE email = ?";
+			query = "SELECT id, username, full_name, email, cabin_number FROM account WHERE email = ?";
 		} else
-			query = "SELECT id FROM account WHERE username = ?";
+			query = "SELECT id, username, full_name, email, cabin_number FROM account WHERE username = ?";
 		
 		PreparedStatement statement = getPreparedStatement(query);
 		
@@ -305,7 +306,12 @@ class DataProcessor {
 		ResultSet result = statement.executeQuery();
 		result.next();
 		
-		return result.getInt("id");
+		return new UserDetailsResponse(Code.SUCCESS,
+				result.getInt("id"),
+				result.getString("username"),
+				result.getString("email"),
+				result.getString("full_name"),
+				result.getString("cabin_number"));
 	}
 	
 	/**

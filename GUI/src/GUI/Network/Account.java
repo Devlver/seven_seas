@@ -7,6 +7,11 @@ import java.io.ObjectInputStream;
 
 public final class Account {
 	private static int currentUser;
+	private static String fullName;
+	private static String username;
+	private static String email;
+	private static String cabinNumber;
+	
 	
 	public static int getCurrentUser() {
 		return currentUser;
@@ -86,7 +91,7 @@ public final class Account {
 	 * @param username Username or email
 	 * @return User id
 	 */
-	public static int GetUserId(String username) throws ClassNotFoundException, IOException {
+	public static UserDetailsResponse GetUserDetails(String username) throws ClassNotFoundException, IOException {
 		SocketInstance sock = SocketInstance.getInstance();
 		
 		Request request;
@@ -106,7 +111,7 @@ public final class Account {
 		os.close();
 		sock.Close();
 		
-		return responsePacket != null ? responsePacket.getId() : -1;
+		return responsePacket;
 	}
 	
 	/**
@@ -117,5 +122,37 @@ public final class Account {
 	 */
 	private static boolean ValidateEmail(String email) {
 		return email.matches("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$");
+	}
+	
+	public static String getFullName() {
+		return fullName;
+	}
+	
+	public static void setFullName(String fullName) {
+		Account.fullName = fullName;
+	}
+	
+	public static String getUsername() {
+		return username;
+	}
+	
+	public static void setUsername(String username) {
+		Account.username = username;
+	}
+	
+	public static String getEmail() {
+		return email;
+	}
+	
+	public static void setEmail(String email) {
+		Account.email = email;
+	}
+	
+	public static String getCabinNumber() {
+		return cabinNumber;
+	}
+	
+	public static void setCabinNumber(String cabinNumber) {
+		Account.cabinNumber = cabinNumber;
 	}
 }

@@ -64,6 +64,9 @@ public class MainViewController implements Initializable {
 	private Label profileEmailLabel;
 	
 	@FXML
+	private Label profileCabinLabel;
+	
+	@FXML
 	private JFXTreeTableView<Excursion> excursionTable;
 	
 	@FXML
@@ -81,6 +84,7 @@ public class MainViewController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		homeTabController = new HomeTabController(this);
 		bookingTabController = new BookingTabController(this);
+		ProfileTabController profileTabController = new ProfileTabController(this);
 		
 		FadeTransition fade = new FadeTransition();
 		fade.setDuration(Duration.millis(800));
@@ -116,6 +120,7 @@ public class MainViewController implements Initializable {
 		fade.play();
 		excursionTable.setPlaceholder(new Text("No excursions available at the moment"));
 		bookedTable.setPlaceholder(new Text("You have no bookings"));
+		profileTabController.PopulateTab();
 		PopulateExcursionList();
 		PopulateBookedList();
 	}
@@ -257,4 +262,11 @@ public class MainViewController implements Initializable {
 		return profileNameLabel;
 	}
 	
+	public Label getProfileEmailLabel() {
+		return profileEmailLabel;
+	}
+	
+	public Label getProfileCabinLabel() {
+		return profileCabinLabel;
+	}
 }
