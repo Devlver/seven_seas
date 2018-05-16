@@ -1,36 +1,45 @@
+/*noinspection ALL*/
 .text {
     -fx-font-smoothing-type: gray;
 }
 
+/*noinspection ALL*/
 .jfx-tab-pane {
     -fx-tab-min-width: 300px;
 }
 
+/*noinspection ALL*/
 .button .jfx-rippler {
     -jfx-rippler-fill: BLUEVIOLET;
 }
 
+/*noinspection ALL*/
 .jfx-tab-pane .tab-header-background {
     -fx-background-color: #36474F;
 }
 
+/*noinspection ALL*/
 .tab-pane .tab-header-area .tab-header-background {
     -fx-background-color: #4C586F;
 }
 
+/*noinspection ALL*/
 .tab {
     -fx-background-insets: 0 2 0 2, 0, 0;
 }
 
+/*noinspection ALL*/
 .tab-pane .tab {
     -fx-background-color: #e6e6e6;
 
 }
 
+/*noinspection ALL*/
 .tab-pane .tab:selected {
     -fx-background-color: #3c3c3c;
 }
 
+/*noinspection ALL*/
 .tab .tab-label {
     -fx-alignment: CENTER;
     -fx-text-fill: #ffffff;
@@ -38,29 +47,35 @@
     -fx-font-size: 25px;
 }
 
+/*noinspection ALL*/
 .tab:selected .tab-label {
     -fx-alignment: CENTER;
     -fx-text-fill: blueviolet;
 }
 
+/*noinspection ALL*/
 .jfx-tab-pane .tab-header-area .jfx-rippler {
     -jfx-rippler-fill: BLUEVIOLET;
 }
 
+/*noinspection ALL*/
 .jfx-tab-pane .tab-selected-line {
     -fx-background-color: BLUEVIOLET;
 }
 
 /* Let TreeTableView rows look like TableView rows  */
+/*noinspection ALL*/
 .tree-table-row-cell {
     -fx-background-color: -fx-table-cell-border-color, -fx-background;
     -fx-background-insets: 0, 0 0 1 0;
 }
 
+/*noinspection ALL*/
 .tree-table-row-cell:selected {
     -fx-background-color: blueviolet;
 }
 
+/*noinspection ALL*/
 .tree-table-view .column-header {
     -fx-font-family: "Orkney Light";
     -fx-font-size: 20;
@@ -80,6 +95,7 @@
     -fx-text-fill: blueviolet;
 }
 
+/*noinspection ALL*/
 .table-column {
     -fx-text-alignment: center;
     -fx-alignment: center;

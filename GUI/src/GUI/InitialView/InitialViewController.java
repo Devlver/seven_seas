@@ -139,9 +139,7 @@ public final class InitialViewController implements Initializable {
 					
 					task2.setOnFailed(event -> {
 						errorLabelLogin.setText("Server error has occurred");
-						e.getSource().getException().printStackTrace();
-						//e.getSource().getException().printStackTrace();
-						//new ExceptionDialog(rootNode, (Exception) e.getSource().getException()).show();
+						new ExceptionDialog(rootNode, (Exception) e.getSource().getException()).show();
 					});
 					
 					new Thread(task2).start();
@@ -160,7 +158,7 @@ public final class InitialViewController implements Initializable {
 					
 					task2.setOnFailed(event -> {
 						errorLabelLogin.setText("Server error has occurred");
-						event.getSource().getException().printStackTrace();
+						new ExceptionDialog(rootNode, (Exception) event.getSource().getException()).show();
 					});
 					
 					new Thread(task2).start();

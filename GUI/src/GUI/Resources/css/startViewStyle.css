@@ -31,6 +31,7 @@
     -fx-border-color: transparent;
 }
 
+/*noinspection ALL*/
 .check-box {
     -fx-font-family: "Orkney Light";
     -fx-font-size: 18;
@@ -48,6 +49,7 @@
     -fx-text-fill: white;
 }
 
+/*noinspection ALL*/
 .button {
     -fx-background-color: blueviolet;
     -fx-text-fill: #EBECED;
@@ -56,10 +58,12 @@
     -fx-background-radius: 20;
 }
 
+/*noinspection ALL*/
 .button:pressed {
     -fx-background-color: #939393;
 }
 
+/*noinspection ALL*/
 .button:hover {
     -fx-background-color: #e84545;
 }
@@ -70,6 +74,7 @@
     -fx-font-smoothing-type: gray;
 }
 
+/*noinspection ALL*/
 .label {
     -fx-font-family: "Orkney Light";
     -fx-font-size: 40;
@@ -77,6 +82,7 @@
     -fx-text-fill: #4C586F
 }
 
+/*noinspection ALL*/
 .hyperlink {
     -fx-font-family: "Orkney Light";
     -fx-font-size: 18;
@@ -84,14 +90,17 @@
     -fx-text-fill: black;
 }
 
+/*noinspection ALL*/
 .progress-indicator {
     -fx-progress-color: blueviolet;
 }
 
+/*noinspection ALL*/
 .split-pane:horizontal > .split-pane-divider {
     -fx-background-color: transparent;
 }
 
+/*noinspection ALL*/
 .split-pane:vertical > .split-pane-divider {
     -fx-background-color: transparent;
 }

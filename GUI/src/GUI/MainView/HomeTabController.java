@@ -3,6 +3,7 @@ package GUI.MainView;
 import Common.Code;
 import Common.Excursion;
 import Common.ExcursionListResponse;
+import GUI.ExceptionDialog;
 import GUI.Network.ExcursionData;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
@@ -80,7 +81,7 @@ class HomeTabController {
 		});
 		
 		task.setOnFailed(event -> {
-			event.getSource().getException().printStackTrace();
+			new ExceptionDialog(main.getParent(), (Exception) event.getSource().getException()).show();
 			main.SetLoading(false);
 			main.getErrorLabelHome().setText("Failed to retrieve excursions. Try again");
 		});

@@ -2,6 +2,7 @@ package GUI.AdminView;
 
 import Common.AdminBooking;
 import Common.Code;
+import GUI.ExceptionDialog;
 import GUI.MainView.BookingEditDialog;
 import GUI.Network.Account;
 import GUI.Network.ExcursionData;
@@ -60,7 +61,6 @@ public class AdminController implements Initializable {
 		
 		task.setOnSucceeded(event -> {
 			if (task.getValue() == null || task.getValue().isEmpty()) {
-				System.out.println("dasd");
 				SetLoading(false);
 				return;
 			}
@@ -106,7 +106,7 @@ public class AdminController implements Initializable {
 		});
 		
 		task.setOnFailed(event -> {
-			event.getSource().getException().printStackTrace();
+			new ExceptionDialog(root, (Exception) event.getSource().getException()).show();
 			SetLoading(false);
 			errorLabel.setText("Failed to retrieve bookings. Try again later");
 		});

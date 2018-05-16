@@ -11,12 +11,8 @@ import java.io.OutputStream;
 class SocketInstance {
 	private java.net.Socket sock;
 	
-	private SocketInstance() {
-		try {
-			sock = new java.net.Socket("178.62.30.181", 5555);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	private SocketInstance() throws IOException {
+		sock = new java.net.Socket("178.62.30.181", 5555);
 	}
 	
 	/**
@@ -24,7 +20,7 @@ class SocketInstance {
 	 *
 	 * @return SocketInstance client
 	 */
-	static SocketInstance getInstance() {
+	static SocketInstance getInstance() throws IOException {
 		return new SocketInstance();
 	}
 	
@@ -61,11 +57,7 @@ class SocketInstance {
 		return sock.getInputStream();
 	}
 	
-	void Close() {
-		try {
-			sock.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	void Close() throws IOException {
+		sock.close();
 	}
 }

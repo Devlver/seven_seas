@@ -3,7 +3,7 @@ package GUI.MainView;
 import GUI.Network.Account;
 
 class ProfileTabController {
-	private MainViewController main;
+	private final MainViewController main;
 	
 	ProfileTabController(MainViewController main) {
 		this.main = main;

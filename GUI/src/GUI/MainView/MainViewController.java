@@ -250,7 +250,7 @@ public class MainViewController implements Initializable {
 	/**
 	 * @return Search JFXTextField
 	 */
-	JFXTextField getSearchField() {
+	private JFXTextField getSearchField() {
 		return searchField;
 	}
 	
@@ -262,11 +262,11 @@ public class MainViewController implements Initializable {
 		return profileNameLabel;
 	}
 	
-	public Label getProfileEmailLabel() {
+	Label getProfileEmailLabel() {
 		return profileEmailLabel;
 	}
 	
-	public Label getProfileCabinLabel() {
+	Label getProfileCabinLabel() {
 		return profileCabinLabel;
 	}
 }

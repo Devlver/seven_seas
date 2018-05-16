@@ -599,6 +599,7 @@ class BCrypt {
 	 *                   2**log_rounds.
 	 * @return an encoded salt value
 	 */
+	@SuppressWarnings("SameParameterValue")
 	private static String gensalt(int log_rounds) {
 		return gensalt(log_rounds, new SecureRandom());
 	}
@@ -713,6 +714,7 @@ class BCrypt {
 	 * @param data salt information
 	 * @param key  password information
 	 */
+	@SuppressWarnings("Duplicates")
 	private void ekskey(byte data[], byte key[]) {
 		int i;
 		int koffp[] = {0}, doffp[] = {0};
