@@ -51,9 +51,19 @@
     -fx-background-color: BLUEVIOLET;
 }
 
-.table-column {
-    -fx-text-alignment: center;
-    -fx-alignment: center;
+/* Let TreeTableView rows look like TableView rows  */
+.tree-table-row-cell {
+    -fx-background-color: -fx-table-cell-border-color, -fx-background;
+    -fx-background-insets: 0, 0 0 1 0;
+}
+
+.tree-table-row-cell:selected {
+    -fx-background-color: blueviolet;
+}
+
+.tree-table-view .column-header {
+    -fx-font-family: "Orkney Light";
+    -fx-font-size: 20;
 }
 
 #errorLabel {
@@ -63,7 +73,19 @@
     -fx-text-fill: red;
 }
 
-.button {
+#admin-label {
+    -fx-font-family: "Orkney Light";
+    -fx-font-size: 18;
+    -fx-text-alignment: center;
+    -fx-text-fill: blueviolet;
+}
+
+.table-column {
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+}
+
+#button-style {
     -fx-font-family: "Orkney Light";
     -fx-font-size: 15;
     -fx-background-color: #e7e7e7;

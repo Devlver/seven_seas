@@ -15,8 +15,11 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeTableRow;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import org.apache.commons.lang3.text.WordUtils;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -53,7 +56,16 @@ class HomeTabController {
 			nameCol.setSortable(false);
 			
 			portIdCol.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getValue().getPortId()));
-			nameCol.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getValue().getName()));
+			nameCol.setCellValueFactory(param -> new SimpleStringProperty(WordUtils.capitalizeFully(param.getValue().getValue().getName())));
+			
+			main.getExcursionTable().setRowFactory(param -> {
+				TreeTableRow<Excursion> row = new TreeTableRow<>();
+				row.setOnMouseClicked(event1 -> {
+					if (!row.isEmpty() && event1.getButton() == MouseButton.PRIMARY && event1.getClickCount() == 2)
+						Book();
+				});
+				return row;
+			});
 			
 			final TreeItem<Excursion> root = new RecursiveTreeItem<>(excursions, RecursiveTreeObject::getChildren);
 			

@@ -17,7 +17,7 @@ class BookingDialog extends JFXDialog {
 	
 	private JFXDatePicker datePicker;
 	private JFXComboBox<Integer> comboBox;
-	String header;
+	private String header;
 	
 	private JFXButton confirmButton;
 	private JFXButton cancelButton;
@@ -85,5 +85,9 @@ class BookingDialog extends JFXDialog {
 	
 	public Label getErrorLabel() {
 		return errorLabel;
+	}
+	
+	public void SetHeader(String value) {
+		header = value;
 	}
 }

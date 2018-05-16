@@ -6,26 +6,27 @@
 <?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.layout.*?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity"
-           minHeight="-Infinity"
-           minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0"
+           minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0"
            stylesheets="@../css/adminViewStyle.css" xmlns="http://javafx.com/javafx/8.0.141"
            fx:controller="GUI.AdminView.AdminController">
     <JFXTabPane>
         <Tab text="Home">
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                 <JFXTreeTableView fx:id="bookingTable" layoutY="86.0" prefHeight="636.0" prefWidth="1366.0"
-                                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                  showRoot="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="86.0">
                     <columnResizePolicy>
                         <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                     </columnResizePolicy>
                 </JFXTreeTableView>
-                <Label id="errorLabel" fx:id="errorLabel" layoutX="1226.0" layoutY="60.0"
-                       AnchorPane.rightAnchor="0.0"/>
-                <JFXButton layoutY="29.0" prefHeight="31.0" prefWidth="70.0" text="Edit"/>
-                <JFXButton layoutX="90.0" layoutY="29.0" prefHeight="31.0" prefWidth="70.0" text="Cancel"/>
-                <JFXButton layoutX="180.0" layoutY="29.0" onAction="#PopulateBookingsTable" prefHeight="31.0"
-                           prefWidth="83.0" text="Refresh"/>
+                <Label id="errorLabel" fx:id="errorLabel" layoutX="1226.0" layoutY="60.0" AnchorPane.rightAnchor="0.0"/>
+                <JFXButton id="button-style" layoutY="29.0" onAction="#Edit" prefHeight="31.0" prefWidth="70.0"
+                           text="Edit"/>
+                <JFXButton id="button-style" layoutX="90.0" layoutY="29.0" onAction="#Cancel" prefHeight="31.0"
+                           prefWidth="70.0" text="Cancel"/>
+                <JFXButton id="button-style" layoutX="180.0" layoutY="29.0" onAction="#PopulateBookingsTable"
+                           prefHeight="31.0" prefWidth="83.0" text="Refresh"/>
+                <Label id="admin-label" layoutX="1277.0" layoutY="5.0" text="Admin mode" AnchorPane.rightAnchor="14.0"/>
             </AnchorPane>
         </Tab>
     </JFXTabPane>

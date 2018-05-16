@@ -188,6 +188,7 @@ class BookingTabController {
 			main.getErrorLabelBookings().setText("Select a booking first");
 		} else {
 			BookingEditDialog dialog = new BookingEditDialog(main.getParent(), selected.getValue().getId());
+			dialog.SetHeader("Edit your booking");
 			dialog.show();
 			
 			JFXDialogLayout resultDialogLayout = new JFXDialogLayout();

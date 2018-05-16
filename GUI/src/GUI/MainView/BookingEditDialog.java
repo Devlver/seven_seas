@@ -7,9 +7,8 @@ import javafx.scene.layout.StackPane;
 import java.io.IOException;
 
 public class BookingEditDialog extends BookingDialog {
-	BookingEditDialog(StackPane parent, int selectedId) {
+	public BookingEditDialog(StackPane parent, int selectedId) {
 		super(parent, selectedId);
-		header = "Edit your booking";
 	}
 	
 	@Override
