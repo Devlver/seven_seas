@@ -64,9 +64,6 @@
                     <Label id="profile-small-label" fx:id="profileEmailLabel" layoutX="278.0" layoutY="225.0"/>
                 </AnchorPane>
             </Tab>
-            <Tab closable="false" text="Settings">
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </Tab>
         </JFXTabPane>
         <JFXHamburger fx:id="hamburger" prefHeight="46.0" prefWidth="131.0"/>
         <JFXDrawer fx:id="drawer" defaultDrawerSize="131.0" layoutY="46.0" prefHeight="722.0" prefWidth="131.0" resizeContent="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="46.0">
