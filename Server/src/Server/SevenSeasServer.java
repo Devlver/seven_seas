@@ -29,7 +29,7 @@ class SevenSeasServer {
 			}
 			// Even if an exception occurs, we don't want the server to shut down 
 			catch (Exception ex) {
-				ex.printStackTrace();
+				//ex.printStackTrace();
 				running = false;
 			}
 		}
